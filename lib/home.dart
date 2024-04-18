@@ -48,18 +48,13 @@ class _HomePageState extends State<HomePage> {
   String convertUnicodeText() {
     print(isToUnicode);
 
-    String data = isToUnicode
-        ? Converter().toUnicode(input)
-        : Converter().toNonUnicode(input);
+    String data = isToUnicode ? Converter().toUnicode(input) : Converter().toNonUnicode(input);
     return data;
   }
 
   // add history
   Future<void> add(data) async {
-    await MyDB.db.insert(History(
-        data: data,
-        isUnicode: isToUnicode ? 1 : 0,
-        createdAt: new DateTime.now().toString()));
+    await MyDB.db.insert(History(data: data, isUnicode: isToUnicode ? 1 : 0, createdAt: new DateTime.now().toString()));
   }
 
   @override
@@ -81,8 +76,7 @@ class _HomePageState extends State<HomePage> {
             onPressed: () {
               Clipboard.getData('text/plain').then((value) {
                 ctrl1.text = value!.text.toString();
-                ctrl1.selection = TextSelection.fromPosition(
-                    TextPosition(offset: ctrl1.text.length));
+                ctrl1.selection = TextSelection.fromPosition(TextPosition(offset: ctrl1.text.length));
                 this.setState(() {
                   this.input = value.text;
                 });
@@ -126,10 +120,7 @@ class _HomePageState extends State<HomePage> {
                     style: textFieldStyle(),
                     maxLines: null,
                     minLines: 10,
-                    decoration: inputDecoration(
-                        hint: isToUnicode
-                            ? 'li-su font converter'
-                            : 'ꓡꓲ-ꓢꓴ ꓝꓳꓠꓔ ꓚꓳꓠꓦꓰꓣꓔꓰꓣ'),
+                    decoration: inputDecoration(hint: isToUnicode ? 'li-su font converter' : 'ꓡꓲ-ꓢꓴ ꓝꓳꓠꓔ ꓚꓳꓠꓦꓰꓣꓔꓰꓣ'),
                     controller: ctrl1,
                     onChanged: onTypeCtrl1,
                   ),
@@ -156,10 +147,8 @@ class _HomePageState extends State<HomePage> {
                           style: ElevatedButton.styleFrom(
                             shape: CircleBorder(),
                             padding: EdgeInsets.all(10),
-                            backgroundColor: Color.fromARGB(
-                                255, 255, 225, 236), // <-- Button color
-                            foregroundColor:
-                                Colors.pinkAccent, // <-- Splash color
+                            backgroundColor: Color.fromARGB(255, 255, 225, 236), // <-- Button color
+                            foregroundColor: Colors.pinkAccent, // <-- Splash color
                           ),
                         ),
                       ),
@@ -194,6 +183,7 @@ class _HomePageState extends State<HomePage> {
   InputDecoration inputDecoration({String? hint}) {
     return InputDecoration(
       filled: true,
+      fillColor: Color.fromARGB(29, 254, 201, 201),
       enabled: true,
       contentPadding: EdgeInsets.all(20),
       border: OutlineInputBorder(
@@ -220,8 +210,7 @@ class HistoryIcon extends StatelessWidget {
     return IconButton(
       splashRadius: 25,
       onPressed: () {
-        Navigator.push(
-            context, MaterialPageRoute(builder: (context) => HistoryPage()));
+        Navigator.push(context, MaterialPageRoute(builder: (context) => HistoryPage()));
       },
       icon: Icon(Icons.history),
     );
